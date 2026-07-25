@@ -17,7 +17,7 @@ const brandData = await getBrandData();
 ---
 
 <BaseLayout {brandData}>
-  <Breadcrumbs class="bg-surface-secondary" items={[{ label: "Главная", href: "/" }, { label: "О компании" }]} />
+  <Breadcrumbs class="relative z-1" items={[{ label: "Главная", href: "/" }, { label: "О компании" }]} />
   <Hero {brandData} type="about" />
   <Advantages {brandData} />
   <Testimonials {brandData} />

@@ -1,18 +1,18 @@
 @theme {
-  --color-accent: hsla(23, 100%, 59%, 1);
+  --color-accent: hsla(87, 48%, 51%, 1);
   --color-outline: hsla(0, 0%, 48%, 0.3);
 
-  --color-text-primary: hsla(227, 96%, 9%, 1);
+  --color-text-primary: hsla(0, 0%, 20%, 1);
   --color-text-primary-inverse: hsla(0, 0%, 100%, 1);
-  --color-text-secondary: hsla(227, 96%, 9%, 0.7);
+  --color-text-secondary: hsla(0, 0%, 20%, 0.8);
   --color-text-secondary-inverse: hsla(0, 0%, 100%, 0.8);
-  --color-text-tertiary: hsla(227, 96%, 9%, 0.5);
+  --color-text-tertiary: hsla(0, 0%, 20%, 0.5);
   --color-text-tertiary-inverse: hsla(0, 0%, 100%, 0.6);
 
   --color-button-surface-primary: hsla(228, 8%, 26%, 1);
   --color-button-surface-primary-inverse: hsla(0, 0%, 100%, 1);
-  --color-button-surface-accent: hsla(23, 100%, 59%, 1);
-  --color-button-surface-accent-inverse: hsla(223, 99%, 55%, 1);
+  --color-button-surface-accent: hsla(13, 100%, 62%, 1);
+  --color-button-surface-accent-inverse: hsla(87, 48%, 51%, 1);
   --color-button-border: hsla(0, 0%, 48%, 0.3);
   --color-button-border-inverse: hsla(0, 0%, 100%, 0.3);
 
@@ -24,13 +24,13 @@
   --color-input-surface-focus-inverse: hsla(0, 0%, 100%, 0.4);
 
   --color-surface-primary: hsla(0, 0%, 100%, 1);
-  --color-surface-primary-inverse: hsla(223, 74%, 92%, 1);
-  --color-surface-secondary: hsla(225, 44%, 96%, 1);
-  --color-surface-secondary-inverse: hsla(223, 41%, 86%, 1);
+  --color-surface-primary-inverse: hsla(206, 12%, 27%, 1);
+  --color-surface-secondary: hsla(200, 19%, 91%, 1);
+  --color-surface-secondary-inverse: hsla(206, 11%, 24%, 1);
   --color-surface-blur: hsla(206, 11%, 24%, 0.85);
 
-  --color-mobile-menu-surface: var(--color-surface-primary-inverse);
-  --color-mobile-menu-text: var(--color-text-primary);
+  --color-mobile-menu-surface: var(--color-button-surface-accent-inverse);
+  --color-mobile-menu-text: var(--color-text-primary-inverse);
 
   --color-toast-surface: var(--color-surface-blur);
   --color-toast-text: var(--color-text-primary-inverse);
@@ -45,34 +45,34 @@
   --color-promo-text-primary: var(--color-text-primary);
   --color-promo-text-secondary: var(--color-text-secondary);
 
-  --color-hero-main-surface: var(--color-surface-secondary);
+  --color-hero-main-surface: var(--color-surface-primary);
   --color-hero-main-text: var(--color-text-primary);
 
-  --color-hero-about-surface: var(--color-surface-secondary);
+  --color-hero-about-surface: var(--color-surface-primary);
   --color-hero-about-text: var(--color-text-primary);
 
-  --color-cta-surface: var(--color-surface-primary-inverse);
-  --color-cta-text: var(--color-text-primary);
+  --color-cta-surface: var(--color-button-surface-accent-inverse);
+  --color-cta-text: var(--color-text-primary-inverse);
 
-  --color-kp-surface: var(--color-surface-primary-inverse);
-  --color-kp-text: var(--color-button-surface-accent-inverse);
-  --color-kp-text-accent: var(--color-text-primary);
+  --color-kp-surface: var(--color-surface-secondary);
+  --color-kp-text: var(--color-text-primary);
+  --color-kp-text-accent: var(--color-button-surface-accent-inverse);
 
-  --color-header-surface: var(--color-surface-secondary);
+  --color-header-surface: var(--color-surface-primary);
   --color-header-text: var(--color-text-primary);
 
-  --color-footer-top-surface: var(--color-surface-secondary);
+  --color-footer-top-surface: var(--color-surface-primary);
   --color-footer-top-text: var(--color-text-primary);
-  --color-footer-bottom-surface: var(--color-surface-secondary-inverse);
+  --color-footer-bottom-surface: var(--color-surface-secondary);
   --color-footer-bottom-text: var(--color-text-tertiary);
 
-  --color-appskilla-surface: var(--color-surface-primary-inverse);
-  --color-appskilla-text: var(--color-text-primary);
-  --color-appskilla-border: var(--color-surface-primary-inverse);
+  --color-appskilla-surface: var(--color-button-surface-accent-inverse);
+  --color-appskilla-text: var(--color-text-primary-inverse);
+  --color-appskilla-border: transparent;
 
-  --color-table-highlight: var(--color-surface-primary-inverse);
+  --color-table-highlight: var(--color-surface-primary);
   --color-table-highlight-heading: var(--color-text-primary);
-  --color-table-yes: var(--color-button-surface-accent);
+  --color-table-yes: var(--color-button-surface-accent-inverse);
   --color-table-yes-accent: var(--color-button-surface-accent);
   --color-table-no: var(--color-text-tertiary);
 
@@ -102,7 +102,7 @@
   --color-button-primary-border_hover: var(--color-button-surface-accent);
 
   --color-button-primary-inverse-surface: var(--color-button-surface-accent-inverse);
-  --color-button-primary-inverse-text: var(--color-text-primary);
+  --color-button-primary-inverse-text: var(--color-text-primary-inverse);
   --color-button-primary-inverse-border: var(--color-button-surface-accent-inverse);
   --color-button-primary-inverse-surface_hover: var(--color-button-surface-accent);
   --color-button-primary-inverse-text_hover: var(--color-text-primary-inverse);
@@ -111,15 +111,15 @@
 
 
   --color-button-secondary-surface: transparent;
-  --color-button-secondary-text: var(--color-button-surface-accent-inverse);
+  --color-button-secondary-text: var(--color-text-primary);
   --color-button-secondary-border: var(--color-button-border);
   --color-button-secondary-surface_hover: var(--color-button-surface-primary);
   --color-button-secondary-text_hover: var(--color-text-primary-inverse);
   --color-button-secondary-border_hover: var(--color-button-surface-primary);
 
   --color-button-secondary-inverse-surface: transparent;
-  --color-button-secondary-inverse-text: var(--color-button-surface-accent-inverse);
-  --color-button-secondary-inverse-border: ar(--color-button-border-inverse);
+  --color-button-secondary-inverse-text: var(--color-text-primary-inverse);
+  --color-button-secondary-inverse-border: var(--color-button-border-inverse);
   --color-button-secondary-inverse-surface_hover: var(--color-surface-primary);
   --color-button-secondary-inverse-text_hover: var(--color-text-primary);
   --color-button-secondary-inverse-border_hover: var(--color-surface-primary);

@@ -13,7 +13,7 @@ const { brandData, class: className } = Astro.props;
 const messengers = brandData.main?.site_messenger_links;
 ---
 
-<div class:list={["flex items-center gap-2.75 py-2 px-5 border border-outline rounded-3xl [&_a]:hover:text-accent", className]} data-cmp="BlockMessengersLinks">
+<div class:list={["flex items-center gap-2.75 py-2 px-5 bg-surface-primary text-text-primary rounded-3xl [&_a]:hover:text-accent", className]} data-cmp="BlockMessengersLinks">
   <p>Написать нам:</p>
 
   {

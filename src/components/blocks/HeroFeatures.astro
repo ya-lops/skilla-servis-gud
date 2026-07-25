@@ -1,32 +1,33 @@
 ---
-const features = [
-  {
-    text: "Низкие цены",
-  },
-  {
-    text: "Трезвые рабочие в течение 1 часа",
-  },
-  {
-    text: "Фиксированная стоимость",
-  },
-  {
-    text: "Отсрочка при крупных заказах",
-  },
-  {
-    text: "26 офисов в России и СНГ",
-  },
-];
+
 ---
 
-<section data-cmp="HeroFeatures">
-  <ul>
-    {
-      features.map((feature) => (
-        <li class="typo-t2 flex items-center gap-3 mb-2">
-          <span class="w-2 h-2 shrink-0 rounded-full bg-button-surface-accent-inverse"></span>
-          <span set:html={feature.text} />
-        </li>
-      ))
-    }
-  </ul>
+<section class="py-20" data-cmp="HeroFeatures">
+  <div class="container">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div class="flex items-center gap-6">
+        <img class="shrink-0" src="/images/feature-1.webp" alt="Иконка с изборажением двухглавого орла" loading="lazy" />
+        <div>
+          <h3 class="typo-h4">Граждане РФ</h3>
+          <p class="max-w-[16rem] typo-t2 mt-5 text-balance">Все сотрудники имеют российские паспорта</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <img class="shrink-0" src="/images/feature-2.webp" alt="Иконка с изборажением будильника" loading="lazy" />
+        <div>
+          <h3 class="typo-h4">Пунктуальные</h3>
+          <p class="max-w-[16rem] typo-t2 mt-5 text-balance">Всегда приходят трезвыми и вовремя</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <img class="shrink-0" src="/images/feature-3.webp" alt="Иконка с символичным изборажением улыбки и галстука-бабочки" loading="lazy" />
+        <div>
+          <h3 class="typo-h4">Воспитанные</h3>
+          <p class="max-w-[16rem] typo-t2 mt-5 text-balance">Не ругаются матом и не нарушают закон</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

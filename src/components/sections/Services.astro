@@ -43,34 +43,34 @@ const serviceIcons = ["office", "cargo", "helmet"];
             return (
               <div
                 class:list={[
-                  "_service-card flex flex-col items-center px-6 rounded-xl text-center",
+                  "_service-card flex flex-col items-center px-6 rounded-3xl text-center add-shadow",
                   isFeatured
-                    ? "pt-6 lg:pt-12 col-span-1 sm:col-span-2 lg:col-span-4 bg-surface-primary-inverse text-text-primary-inverse"
-                    : "py-12 col-span-1 sm:col-span-1 lg:col-span-3 bg-surface-secondary text-text-primary",
+                    ? "pt-6 lg:pt-12 col-span-1 sm:col-span-2 lg:col-span-4 bg-surface-primary text-text-primary"
+                    : "py-12 col-span-1 sm:col-span-1 lg:col-span-3 bg-surface-primary text-text-primary",
                 ]}
               >
                 {isFeatured && <p class="mb-4">24/7</p>}
 
                 <h3 class="_service-card-title mb-6 typo-h4">{service.name}</h3>
-                <p
-                  class:list={["_service-card-description mb-8 typo-t3", isFeatured ? "text-text-secondary-inverse" : "text-text-primary"]}
-                >
+                <p class:list={["_service-card-description mb-8 typo-t3", isFeatured ? "text-text-secondary" : "text-text-secondary"]}>
                   {service.description}
                 </p>
 
                 <Button
                   href={`/${service.url.toLowerCase()}`}
-                  class="mt-auto not-last:mb-12"
+                  class="mt-auto not-last:mb-20"
                   variant="primary"
-                  inverse={isFeatured}
                   arrow="right"
                   text={`от ${discountedPrice} ₽`}
                 />
 
                 {isFeatured && (
-                  <div class="_service-card-image mt-auto w-full aspect-video rounded-lg">
+                  <div class="_service-card-image relative flex justify-center w-full mt-auto isolate overflow-clip">
                     {media === "icon" ? (
-                      <IconService name={serviceIcons[index]} class="w-full h-full" />
+                      <>
+                        <IconService name={serviceIcons[index]} class="w-full h-full" />
+                        <div class="_decorative absolute -z-1 left-[50%] bottom-0 translate-y-[50%] translate-x-[-50%] w-[240px] aspect-square bg-surface-secondary rounded-full pointer-events-none" />
+                      </>
                     ) : (
                       <img
                         src={service.image || `/images/service-${index + 1}.webp`}
