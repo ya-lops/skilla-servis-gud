@@ -1,20 +1,20 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import KP from "@/components/sections/KP.astro";
-
-import { getBrandData } from "@/lib/api";
 import Breadcrumbs from "@/components/ui/Breadcrumbs.astro";
 
-export async function getStaticPaths() {
-  const brandData = await getBrandData();
+import { getBrandData } from "@/lib/api";
+import Blog from "@/components/sections/Blog.astro";
 
-  return brandData.articles.map((article) => ({
-    params: { blogpost: article.url },
-    props: { article, brandData },
-  }));
+const { blogpost } = Astro.params;
+
+const brandData = await getBrandData();
+
+const article = brandData.articles.find((a) => a.url === blogpost);
+
+if (!article) {
+  return Astro.rewrite("/404");
 }
-
-const { article, brandData } = Astro.props;
 ---
 
 <BaseLayout
@@ -25,18 +25,117 @@ const { article, brandData } = Astro.props;
 >
   <Breadcrumbs items={[{ label: "Главная", href: "/" }, { label: "Блог", href: "/blog" }, { label: article.title }]} />
 
-  <article class="blogpost py-8 md:py-10 lg:py-20">
+  <article class="blogpost py-8 md:py-10 lg:py-20" data-page="blogpost">
     <div class="container">
-      <div class="_blogpost-inner max-w-3xl mx-auto">
-        <h1 class="_blogpost-title typo-h2 mb-8">{article.title}</h1>
-        <time class="_blogpost-date typo-label block mb-12" datetime={article.date_create}>
+      <div class="_blogpost-inner max-w-[57.5rem] mx-auto">
+        <time class="_blogpost-date typo-label text-text-tertiary block mb-3" datetime={article.date_create}>
           {article.date_create}
         </time>
 
-        <div class="_blogpost-content prose max-w-none" set:html={article.content} />
+        <h1 class="_blogpost-title typo-h1 mb-8">{article.title}</h1>
+
+        <!-- Рыба -->
+        <p>
+          Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике безопасности
+          и с гарантией. Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике
+          безопасности и с гарантией.
+        </p>
+
+        <img src="/images/blogpost-1.webp" alt="" />
+
+        <h2>Подзаголовок</h2>
+
+        <p>
+          Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике безопасности
+          и с гарантией. Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике
+          безопасности и с гарантией.
+        </p>
+
+        <p>
+          Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике безопасности
+          и с гарантией. Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике
+          безопасности и с гарантией.
+        </p>
+
+        <img src="/images/blogpost-1.webp" alt="" />
+
+        <h2>Подзаголовок</h2>
+
+        <p>
+          Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике безопасности
+          и с гарантией. Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике
+          безопасности и с гарантией.
+        </p>
+
+        <p>
+          Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике безопасности
+          и с гарантией. Любой сложности: подъем сейфов, станков, промышленного оборудования. Наши мастера СМР работают строго по технике
+          безопасности и с гарантией.
+        </p>
+
+        <img src="/images/blogpost-1.webp" alt="" />
+
+        <h2>Нумерованный список</h2>
+        <ol>
+          <li>Только граждане РФ;</li>
+          <li>Ответственность, пунктуальность и исполнительность;</li>
+          <li>Постоянная работа или работа на разовых заказах;</li>
+          <li>Работа разъездная в разных районах города;</li>
+          <li>Возможно совмещение, подработка в свободное время;</li>
+          <li>Есть работа во всех районах города.</li>
+        </ol>
+
+        <h2>Маркированный список</h2>
+        <ul>
+          <li>Только граждане РФ;</li>
+          <li>Ответственность, пунктуальность и исполнительность;</li>
+          <li>Постоянная работа или работа на разовых заказах;</li>
+          <li>Работа разъездная в разных районах города;</li>
+          <li>Возможно совмещение, подработка в свободное время;</li>
+          <li>Есть работа во всех районах города.</li>
+        </ul>
+
+        <!-- Убрать рыбу и оставить это -->
+        <!-- <div class="_blogpost-content prose max-w-none" set:html={article.content} /> -->
       </div>
     </div>
   </article>
 
+  <Blog {brandData} showLast/>
+
   <KP {brandData} />
 </BaseLayout>
+
+<style is:global>
+  @reference "@/styles/global.css";
+
+  [data-page="blogpost"] {
+    & :where(h1, h2, h3, h4, h5, h6, ul, ol, img) {
+      @apply mt-8 lg:mt-20;
+    }
+
+    & p {
+      @apply typo-t1 max-w-[45.625rem] mt-6;
+    }
+
+    & img {
+      @apply rounded-3xl;
+    }
+
+    & :where(ol, ul) {
+      @apply list-inside typo-t1 mt-6;
+
+      li {
+        @apply mt-2 text-text-secondary;
+      }
+    }
+
+    & ol {
+      @apply list-decimal;
+    }
+
+    & ul {
+      @apply list-disc;
+    }
+  }
+</style>

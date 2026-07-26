@@ -9,35 +9,38 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs.astro";
 
 import { getBrandData } from "@/lib/api";
 
-export async function getStaticPaths() {
-  const brandData = await getBrandData();
-  const firstServiceUrl = brandData.services[0]?.url?.toLowerCase();
+const { service } = Astro.params;
 
-  return brandData.services
-    .filter((s) => s.is_active === 1)
-    .map((service) => ({
-      params: { service: service.url },
-      props: { service, brandData, firstServiceUrl },
-    }));
+const brandData = await getBrandData();
+
+const currentService = brandData.services.find(
+  (s) => s.is_active === 1 && s.url.toLowerCase() === service?.toLowerCase()
+);
+
+if (!currentService) {
+  return Astro.rewrite("/404");
 }
 
-const { service, brandData, firstServiceUrl } = Astro.props;
+const firstServiceUrl = brandData.services[0]?.url?.toLowerCase();
 
-// Ищем мета-данные для страницы услуги
-const pageMeta = brandData.meta?.find((m) => m.url === service.url);
+const pageMeta = brandData.meta?.find((m) => m.url === currentService.url);
 ---
 
 <BaseLayout
   {brandData}
-  metaTitle={pageMeta?.title || service.name}
-  metaDescription={pageMeta?.description || service.description}
+  metaTitle={pageMeta?.title || currentService.name}
+  metaDescription={pageMeta?.description || currentService.description}
   metaKeywords={pageMeta?.keywords || ""}
 >
   <Breadcrumbs
-    items={[{ label: "Главная", href: "/" }, { label: "Услуги и цены", href: `/${firstServiceUrl}` }, { label: service.name }]}
+    items={[
+      { label: "Главная", href: "/" },
+      { label: "Услуги и цены", href: `/${firstServiceUrl}` },
+      { label: currentService.name },
+    ]}
   />
 
-  <PriceTable {brandData} currentService={service} />
+  <PriceTable {brandData} currentService={currentService} />
   <CalculatorForm {brandData} />
   <Blog {brandData} />
   <KP {brandData} />

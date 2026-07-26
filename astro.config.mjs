@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
-// import node from "@astrojs/node";
+import node from "@astrojs/node";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -8,11 +8,11 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "static",
+  output: "server",
   
-  // adapter: node({
-  //   mode: "standalone",
-  // }),
+  adapter: node({
+    mode: "standalone",
+  }),
 
   compressHTML: false,
 
