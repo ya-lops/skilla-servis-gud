@@ -15,7 +15,13 @@ import FormCheckbox from "@/components/ui/FormCheckbox.astro";
         Соглашаюсь с <a href="/policy" class="underline">политикой обработки персональных данных</a>
       </FormCheckbox>
     </div>
-    <Button tag="button" type="submit" variant="accent" :disabled="submitting">
+    <Button
+      tag="button"
+      type="submit"
+      variant="accent"
+      :disabled="submitting || !form.agreement"
+      :class="{ 'grayscale opacity-50 cursor-not-allowed!': !form.agreement }"
+    >
       <span x-text="submitting ? 'Отправка...' : 'Получить КП'"></span>
     </Button>
   </form>

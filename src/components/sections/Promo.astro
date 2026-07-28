@@ -28,7 +28,7 @@ function parseDiscount(text: string): number | null {
   return match ? parseFloat(match[1].replace(",", ".")) : null;
 }
 
-let chosenAction: (typeof site_actions)[number] | undefined;
+let chosenAction: typeof site_actions[number] | undefined;
 
 if (action_sel === 1) {
   // случайная акция при каждом заходе на страницу
@@ -44,22 +44,22 @@ const discount = description ? parseDiscount(description) : null;
 
 {
   description && (
-    <section class="promo relative z-2 bg-promo-surface overflow-clip" data-cmp="Promo">
+    <section class="relative z-2 bg-promo-surface overflow-clip" data-cmp="Promo">
       <div class="container relative">
-        <div class="_promo-inner flex items-center lg:justify-center gap-7 pl-1 pr-3 lg:px-0 lg:gap-15 max-w-[747px] mx-auto py-2">
+        <div class="flex items-center lg:justify-center gap-7 pl-1 pr-3 lg:px-0 lg:gap-15 max-w-[747px] mx-auto py-2">
           <div class="flex items-center gap-5">
             {discount !== null && (
-              <div class="_promo-value flex items-center justify-center py-1 px-2 rounded-xl text-button-surface-accent-inverse text-xl font-bold border border-outline">
+              <div class="flex items-center justify-center py-1 px-2 rounded-xl text-button-surface-accent-inverse text-xl font-bold border border-outline">
                 -{discount}%
               </div>
             )}
 
-            <div class="_promo-description flex flex-col ">
+            <div class="flex flex-col ">
               <p class="text-promo-text-primary typo-t2 font-medium">{description}</p>
             </div>
           </div>
 
-          <div class="_promo-actions ml-auto lg:ml-0">
+          <div class="ml-auto lg:ml-0">
             <Button
               href={`/${firstServiceUrl}`}
               variant="secondary"

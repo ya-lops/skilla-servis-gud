@@ -54,7 +54,7 @@ const { brandData } = Astro.props;
     x-transition:leave="transition ease-in duration-200"
     x-transition:leave-start="opacity-100 scale-100"
     x-transition:leave-end="opacity-0 scale-95"
-    class="relative z-5 w-full max-w-[1050px] p-4 py-8 md:p-10 lg:p-25 rounded-sm bg-surface-primary"
+    class="relative z-5 w-full max-w-[1050px]"
     @click.outside="close()"
   >
     <button
@@ -118,11 +118,17 @@ const { brandData } = Astro.props;
           />
 
           <FormCheckbox id="modal-agree" model="form.agree" errorModel="errors.agree">
-            Я согласен с обработкой персональных данных
+            Соглашаюсь с <a href="/policy" class="underline">политикой обработки персональных данных</a>
           </FormCheckbox>
 
           <div class="mt-2">
-            <Button tag="button" type="submit" variant="accent" :disabled="submitting">
+            <Button
+              tag="button"
+              type="submit"
+              variant="accent"
+              :disabled="submitting || !form.agree"
+              :class="{ 'grayscale opacity-50 cursor-not-allowed!': !form.agree }"
+            >
               <span x-text="submitting ? 'Отправка...' : 'Оставить заявку'"></span>
             </Button>
           </div>

@@ -14,18 +14,25 @@ export interface BrandDefault {
 }
 
 export interface SocialLink {
+  telegram?: string;    
   instagram?: string;
+  youtube?: string; 
+  vk?: string;      
+  rutube?: string;  
+  dzen?: string;    
 }
 
 export interface MessengerLink {
+  vk?: string;   
   telegram?: string;
-  whatsapp?: string;
-  viber?: string;
   max?: string;
+  whatsapp?: string;
 }
 
 export interface ReplacementPhone {
   yandex?: string;
+  google?: string;
+  '2gis'?: string;
 }
 
 export interface SiteAction {
@@ -70,13 +77,13 @@ export interface SubService {
   id: number;
   name: string;
   price: string;
-  unit: string;
+  unit: string | null;
 }
 
 export interface Service {
   id: number;
   name: string;
-  description: string;
+  description: string | null;
   url: string;
   is_active: number;
   services: SubService[];
@@ -146,6 +153,20 @@ export interface Article {
   content: string;
 }
 
+// ============ Новый тип: Города на карте ============
+
+export interface MapCity {
+  city: string;
+  seo_site: string;
+  lat: number;
+  lng: number;
+}
+
+export interface MapCoordinates {
+  city_count: number;
+  cities: MapCity[];
+}
+
 // ============ Главный тип бренда ============
 
 export interface BrandData {
@@ -159,4 +180,5 @@ export interface BrandData {
   vacancies: Vacancies;
   contents: Content[];
   articles: Article[];
+  map_coordinates: MapCoordinates;
 }

@@ -44,7 +44,7 @@ const { metaTitle, metaDescription, metaKeywords } = Astro.props;
     <meta name="keywords" content={metaKeywords || pageMeta?.keywords || defaultMeta?.keywords || ""} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
+
     <script defer src="/scripts/alpinejs.min.js"></script>
     <script defer src="/scripts/fancybox.umd.js"></script>
     <link rel="stylesheet" href="/scripts/fancybox.css" />
@@ -70,7 +70,7 @@ const { metaTitle, metaDescription, metaKeywords } = Astro.props;
 
     <CookieConsent />
     <BlockToast />
-    <ContactModalForm {brandData}/>
+    <ContactModalForm {brandData} />
 
     <BlockToastScript />
     <CookieConsentScript />

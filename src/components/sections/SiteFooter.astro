@@ -6,6 +6,7 @@ import { STORAGE_PATH } from "@/lib/consts";
 import BlockMessengersLinks from "../blocks/BlockMessengersLinks.astro";
 import BlockAppSkilla from "../blocks/BlockAppSkilla.astro";
 import PhoneReplacement from "../blocks/PhoneReplacement.astro";
+import BlockSocialLinks from "../blocks/BlockSocialLinks.astro";
 
 interface Props {
   brandData: BrandData;
@@ -46,8 +47,6 @@ const { brandData } = Astro.props;
             <a class="text-text-primary hover:underline!" href={`mailto:${brandData.main.site_email}`}>{brandData.main.site_email}</a>
           </div>
 
-          <BlockMessengersLinks {brandData} class="text-text-secondary border border-outline" />
-
           {
             brandData.main.site_work_time && (
               <div class="text-text-tertiary">
@@ -55,6 +54,9 @@ const { brandData } = Astro.props;
               </div>
             )
           }
+
+          <BlockMessengersLinks {brandData} class="text-text-secondary border border-outline" />
+          <BlockSocialLinks {brandData} />
         </div>
 
         <nav
@@ -118,7 +120,10 @@ const { brandData } = Astro.props;
           </div>
         </nav>
 
-        <BlockAppSkilla />
+        {/* Условие для отображения личного кабинета, нужно брать из админки */}
+        {/* сейчас просто написано чтото рандомное */}
+        {/* в MobileNav.astro тоже */}
+        {brandData.main?.showPersonal && <BlockAppSkilla />}
       </div>
     </div>
   </div>
