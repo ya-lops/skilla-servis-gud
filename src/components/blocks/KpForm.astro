@@ -56,32 +56,56 @@ import FormCheckbox from "@/components/ui/FormCheckbox.astro";
           return !Object.values(this.errors).some(Boolean);
         },
 
-        submitForm() {
-          const isValid = this.validate();
-
-          if (!isValid) {
+        async submitForm() {
+          if (!this.validate()) {
             return;
           }
 
           this.submitting = true;
 
-          setTimeout(() => {
-            this.submitting = false;
-            const isError = Math.random() < 0.3;
+          try {
+            const response = await fetch("https://api2.skilla.ru/api/site/commercial-offer", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                phone: this.form.phone.replace(/\D/g, ""),
+                inn: this.form.inn.trim(),
+              }),
+            });
 
-            if (isError) {
-              this.$dispatch("show-toast", {
-                message: "Произошла ошибка. Попробуйте позже",
-                type: "error",
-              });
-            } else {
-              this.$dispatch("show-toast", {
-                message: "Заявка отправлена!",
-                type: "success",
-              });
-              this.form = { name: "", phone: "", email: "", inn: "", agreement: false };
+            if (!response.ok) {
+              throw new Error(`Ошибка сервера: ${response.status}`);
             }
-          }, 800);
+
+            const data = await response.json();
+
+            this.$dispatch("show-toast", {
+              message: "Заявка отправлена!",
+              type: "success",
+            });
+
+            // Очищаем форму после успешной отправки
+            this.form = { name: "", phone: "", email: "", inn: "", agreement: false };
+            // Сбрасываем ошибки
+            this.errors = {
+              name: false,
+              phone: false,
+              email: false,
+              inn: false,
+              agreement: false,
+            };
+          } catch (error) {
+            console.error("Ошибка отправки формы:", error);
+
+            this.$dispatch("show-toast", {
+              message: "Произошла ошибка. Попробуйте позже",
+              type: "error",
+            });
+          } finally {
+            this.submitting = false;
+          }
         },
       };
     }

@@ -5,27 +5,13 @@ import { STORAGE_PATH } from "@/lib/consts";
 
 import BlockMessengersLinks from "../blocks/BlockMessengersLinks.astro";
 import BlockAppSkilla from "../blocks/BlockAppSkilla.astro";
+import PhoneReplacement from "../blocks/PhoneReplacement.astro";
 
 interface Props {
   brandData: BrandData;
 }
 
 const { brandData } = Astro.props;
-
-const workTime = [
-  {
-    text: "Прием заказов",
-    value: brandData.main.site_work_time,
-  },
-  {
-    text: "",
-    value: brandData.main.site_work_time_1,
-  },
-  {
-    text: "",
-    value: brandData.main.site_work_time_2,
-  },
-];
 ---
 
 <footer data-cmp="SiteFooter">
@@ -42,9 +28,11 @@ const workTime = [
           <div class="flex flex-col gap-4">
             {
               brandData.main.site_phone && (
-                <a class="typo-t1 text-text-primary hover:underline!" href={`tel:${brandData.main.site_phone}`}>
-                  {brandData.main.site_phone}
-                </a>
+                <PhoneReplacement
+                  phone={brandData.main.site_phone}
+                  replacementPhones={brandData.main.site_replacement_phones}
+                  class="typo-t1 text-text-primary hover:underline!"
+                />
               )
             }
             {
@@ -55,21 +43,15 @@ const workTime = [
               )
             }
 
-            <a class="text-text-primary hover:underline!" href={`mailto:${brandData.main.site_email}`}
-              >{brandData.main.site_email}</a
-            >
+            <a class="text-text-primary hover:underline!" href={`mailto:${brandData.main.site_email}`}>{brandData.main.site_email}</a>
           </div>
 
-          <BlockMessengersLinks {brandData} class="text-text-secondary border border-outline"/>
+          <BlockMessengersLinks {brandData} class="text-text-secondary border border-outline" />
 
           {
-            workTime && (
+            brandData.main.site_work_time && (
               <div class="text-text-tertiary">
-                {workTime.map((i: any) => (
-                  <p class="not:last:mb-1">
-                    {i.text}: {i.value}
-                  </p>
-                ))}
+                <p>Время заказов: {brandData.main.site_work_time}</p>
               </div>
             )
           }
