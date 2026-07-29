@@ -4,6 +4,7 @@ import type { BrandData } from "@/types/brand";
 import BlockMessengersLinks from "@/components/blocks/BlockMessengersLinks.astro";
 import Button from "@/components/ui/Button.astro";
 import Map from "./Map.astro";
+import PhoneReplacement from "../blocks/PhoneReplacement.astro";
 
 interface Props {
   brandData: BrandData;
@@ -57,9 +58,11 @@ const reqs = [
           <div class="_contacts-phones flex flex-col gap-4">
             {
               brandData.main.site_phone && (
-                <a class="typo-t1 text-text-primary hover:underline!" href={`tel:${brandData.main.site_phone}`}>
-                  {brandData.main.site_phone}
-                </a>
+                <PhoneReplacement
+                  phone={brandData.main.site_phone}
+                  replacementPhones={brandData.main.site_replacement_phones}
+                  class="typo-t1 text-text-primary hover:underline!"
+                />
               )
             }
             {
