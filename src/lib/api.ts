@@ -1,7 +1,7 @@
 // src/lib/api.ts
 import type { BrandData } from '@/types/brand';
 
-const API_URL = 'https://api2.skilla.ru/api/site';
+import { API_URL } from './consts';
 
 export async function getBrandData(): Promise<BrandData> {
   try {
