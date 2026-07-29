@@ -16,9 +16,9 @@ const { brandData } = Astro.props;
       <div class="container">
         <h2 class="mb-8 md:12 lg:mb-16">Отзывы наших клиентов</h2>
 
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
           {brandData.feedbacks?.map((testimonial: any) => (
-            <div class="flex flex-col items-start gap-6 p-10 border border-outline rounded-[1.25rem] text-text-secondary">
+            <div class="flex flex-col items-start gap-6 p-4 lg:p-10 border border-outline rounded-[1.25rem] text-text-secondary">
               <div class="flex items-start justify-center w-19 h-19 aspect-square mb-4 rounded-xl overflow-clip">
                 {testimonial.avatar ? (
                   <img

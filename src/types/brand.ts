@@ -87,6 +87,7 @@ export interface Service {
   url: string;
   is_active: number;
   services: SubService[];
+  order?: any;
 }
 
 // ============ Счетчики ============

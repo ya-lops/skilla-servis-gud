@@ -15,7 +15,7 @@ const messengers = brandData.main?.site_messenger_links;
 
 {
   messengers.length > 0 && (
-    <div class:list={["flex items-center gap-2.75 [&_a]:hover:text-accent", className]} data-cmp="BlockMessengersLinks">
+    <div class:list={["flex items-center gap-2.75 [&_a]:hover:text-accent py-2 px-5 border border-outline rounded-3xl bg-surface-primary", className]} data-cmp="BlockMessengersLinks">
       <p>Написать нам:</p>
 
       {messengers?.map((link) => (

@@ -11,13 +11,14 @@ interface Props {
 const { brandData, class: className } = Astro.props;
 
 const socials = brandData.main?.site_social_links;
-
-console.log(brandData.main?.site_social_links);
 ---
 
 {
   socials.length > 0 && (
-    <div class:list={["flex items-center gap-2.75 *:rounded-lg *:overflow-clip *:hover:scale-105 *:transition-transform", className]} data-cmp="BlockSocialLinks">
+    <div
+      class:list={["flex items-center gap-2.75 *:rounded-lg *:overflow-clip *:hover:scale-105 *:transition-transform", className]}
+      data-cmp="BlockSocialLinks"
+    >
       {socials?.map((link) => (
         <>
           {link.instagram && (

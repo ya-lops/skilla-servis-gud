@@ -29,7 +29,7 @@ const pageMeta = brandData.meta?.find((m) => m.url === currentService.url);
 <BaseLayout
   {brandData}
   metaTitle={pageMeta?.title || currentService.name}
-  metaDescription={pageMeta?.description || currentService.description}
+  metaDescription={pageMeta?.description || currentService.description || ''}
   metaKeywords={pageMeta?.keywords || ""}
 >
   <Breadcrumbs
@@ -40,7 +40,7 @@ const pageMeta = brandData.meta?.find((m) => m.url === currentService.url);
     ]}
   />
 
-  <PriceTable {brandData} currentService={currentService} />
+  <PriceTable {brandData} />
   <CalculatorForm {brandData} />
   <Blog {brandData} />
   <KP {brandData} />

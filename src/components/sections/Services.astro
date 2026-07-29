@@ -25,65 +25,78 @@ const discount = getDiscountPercent(brandData.main.adv_price_percent);
 const showDiscount = hasDiscount(discount);
 
 const serviceIcons = ["office", "cargo", "helmet"];
+
+const hasOrder = brandData.services.some((s) => s.order !== undefined);
+
+const sortedServices = (
+  hasOrder
+    ? brandData.services.sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0))
+    : brandData.services.map((service, index) => ({
+        ...service,
+        order: index < 3 ? index + 1 : null,
+      }))
+)
+  .filter((service) => service.is_active === 1)
+  .slice(0, 7);
+
+function isFeatured(service: (typeof sortedServices)[0]): boolean {
+  return (Number(service.order) || 0) > 0;
+}
 ---
 
-<section class="services py-8 md:py-10 lg:py-20" data-cmp="Services">
+<section class="py-8 md:py-10 lg:py-20" data-cmp="Services">
   <div class="container">
-    <h2 class="_services-title mb-8 md:12 lg:mb-16 typo-h2">Наши услуги для бизнеса</h2>
-    <div class="_services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6">
+    <h2 class="mb-8 md:12 lg:mb-16 typo-h2">Наши услуги для бизнеса</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6">
       {
-        brandData.services
-          .filter((service) => service.is_active === 1)
-          .slice(0, 7)
-          .map((service, index) => {
-            const minService = getMinPriceService(service.services);
-            const discountedPrice = getDiscountedPrice(minService.price, discount);
-            const isFeatured = index < 3;
+        sortedServices.map((service, index) => {
+          const minService = getMinPriceService(service.services);
+          const discountedPrice = getDiscountedPrice(minService.price, discount);
+          const isFeatured = index < 3;
 
-            return (
-              <div
-                class:list={[
-                  "_service-card flex flex-col items-center px-6 rounded-3xl text-center add-shadow",
-                  isFeatured
-                    ? "pt-6 lg:pt-12 col-span-1 sm:col-span-2 lg:col-span-4 bg-surface-primary text-text-primary"
-                    : "py-12 col-span-1 sm:col-span-1 lg:col-span-3 bg-surface-primary text-text-primary",
-                ]}
-              >
-                {isFeatured && <p class="mb-4">24/7</p>}
+          return (
+            <div
+              class:list={[
+                "flex flex-col items-center px-6 rounded-3xl text-center add-shadow",
+                isFeatured
+                  ? "pt-6 lg:pt-12 col-span-1 sm:col-span-2 lg:col-span-4 bg-surface-primary text-text-primary"
+                  : "py-12 col-span-1 sm:col-span-1 lg:col-span-3 bg-surface-primary text-text-primary",
+              ]}
+            >
+              {isFeatured && <p class="mb-4">24/7</p>}
 
-                <h3 class="_service-card-title mb-6 typo-h4">{service.name}</h3>
-                <p class:list={["_service-card-description mb-8 typo-t3", isFeatured ? "text-text-secondary" : "text-text-secondary"]}>
-                  {service.description}
-                </p>
+              <h3 class="mb-6 typo-h4">{service.name}</h3>
 
-                <Button
-                  href={`/${service.url.toLowerCase()}`}
-                  class="mt-auto not-last:mb-20"
-                  variant="primary"
-                  arrow="right"
-                  text={`от ${discountedPrice} ₽`}
-                />
+              <p class:list={["mb-8 typo-t3", isFeatured ? "text-text-secondary" : "text-text-secondary"]}>{service.description}</p>
 
-                {isFeatured && (
-                  <div class="_service-card-image relative flex justify-center w-full mt-auto isolate overflow-clip">
-                    {media === "icon" ? (
-                      <>
-                        <IconService name={serviceIcons[index]} class="w-full h-full" />
-                        <div class="_decorative absolute -z-1 left-[50%] bottom-0 translate-y-[50%] translate-x-[-50%] w-[240px] aspect-square bg-surface-secondary rounded-full pointer-events-none" />
-                      </>
-                    ) : (
-                      <img
-                        src={service.image || `/images/service-${index + 1}.webp`}
-                        alt={`Изображение для услуги ${service.name}`}
-                        class="w-full h-full object-cover rounded-lg"
-                        loading="lazy"
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
-            );
-          })
+              <Button
+                href={`/${service.url.toLowerCase()}`}
+                class="mt-auto not-last:mb-20"
+                variant="primary"
+                arrow="right"
+                text={`от ${discountedPrice} ₽`}
+              />
+
+              {isFeatured && (
+                <div class="relative flex justify-center w-full mt-auto isolate overflow-clip">
+                  {media === "icon" ? (
+                    <>
+                      <IconService name={serviceIcons[index]} class="w-full h-full" />
+                      <div class="absolute -z-1 left-[50%] bottom-0 translate-y-[50%] translate-x-[-50%] w-[240px] aspect-square bg-surface-secondary rounded-full pointer-events-none" />
+                    </>
+                  ) : (
+                    <img
+                      src={service.image || `/images/service-${index + 1}.webp`}
+                      alt={`Изображение для услуги ${service.name}`}
+                      class="w-full h-full object-cover rounded-lg"
+                      loading="lazy"
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })
       }
     </div>
 

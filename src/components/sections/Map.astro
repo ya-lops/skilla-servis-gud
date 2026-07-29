@@ -28,40 +28,46 @@ const cityCount = mapData.city_count;
 }
 
 <script is:inline define:vars={{ citiesJson }}>
-  const script = document.createElement("script");
-  script.src = "https://api-maps.yandex.ru/2.1/?apikey=ВАШ_API_КЛЮЧ&lang=ru_RU";
-  script.onload = () => {
-    ymaps.ready(() => {
-      const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#FF5722';
-      
-      const map = new ymaps.Map("map", {
-        center: [57.251096, 68.40977],
-        zoom: 3,
-        controls: ["zoomControl", "typeSelector"],
-      });
+  const initMap = () => {
+    const accentColor = getComputedStyle(document.documentElement).getPropertyValue("--color-accent").trim() || "#FF5722";
 
-      map.behaviors.disable("scrollZoom");
+    const map = new ymaps.Map("map", {
+      center: [57.251096, 68.40977],
+      zoom: 3,
+      controls: ["zoomControl", "typeSelector"],
+    });
 
-      const cities = JSON.parse(citiesJson);
-      const encodedColor = encodeURIComponent(accentColor);
+    map.behaviors.disable("scrollZoom");
 
-      cities.forEach((city) => {
-        const placemark = new ymaps.Placemark(
-          [city.lat, city.lng],
-          {
-            hintContent: city.city,
-            balloonContent: `<strong>${city.city}</strong><br><a href="https://${city.seo_site}" target="_blank" rel="noopener noreferrer">${city.seo_site}</a>`,
-          },
-          {
-            iconLayout: "default#imageWithContent",
-            iconImageHref: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='${encodedColor}' stroke='black' stroke-width='2'/%3E%3C/svg%3E`,
-            iconImageSize: [16, 16],
-            iconImageOffset: [-8, -8],
-          },
-        );
-        map.geoObjects.add(placemark);
-      });
+    const cities = JSON.parse(citiesJson);
+    const encodedColor = encodeURIComponent(accentColor);
+
+    cities.forEach((city) => {
+      const placemark = new ymaps.Placemark(
+        [city.lat, city.lng],
+        {
+          hintContent: city.city,
+          balloonContent: `<strong>${city.city}</strong><br><a href="https://${city.seo_site}" target="_blank" rel="noopener noreferrer">${city.seo_site}</a>`,
+        },
+        {
+          iconLayout: "default#imageWithContent",
+          iconImageHref: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='${encodedColor}' stroke='black' stroke-width='2'/%3E%3C/svg%3E`,
+          iconImageSize: [16, 16],
+          iconImageOffset: [-8, -8],
+        },
+      );
+      map.geoObjects.add(placemark);
     });
   };
-  document.head.appendChild(script);
+
+  if (typeof ymaps !== "undefined") {
+    ymaps.ready(initMap);
+  } else {
+    const script = document.createElement("script");
+    script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
+    script.onload = () => {
+      ymaps.ready(initMap);
+    };
+    document.head.appendChild(script);
+  }
 </script>

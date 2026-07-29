@@ -37,7 +37,7 @@ const showDiscount = hasDiscount(discountPercent);
 
     <div class="_price-table-inner grid grid-col-1 lg:grid-cols-[360px_2fr] items-start gap-10">
       <div
-        class="_service-list flex gap-4 lg:gap-0 lg:flex-col pb-2 lg:pb-0 -mx-4 lg:mx-[initial] px-4 lg:p-0 overflow-auto lg:p-3 lg:border lg:border-outline lg:rounded-2xl"
+        class="_service-list flex gap-4 lg:gap-0 lg:flex-col pb-2 lg:pb-0 -mx-4 lg:mx-[initial] px-4 lg:p-0 overflow-auto"
       >
         {
           allServices.map((service) => {
@@ -63,7 +63,7 @@ const showDiscount = hasDiscount(discountPercent);
         {
           currentService?.services && currentService.services.length > 0 ? (
             <>
-              <div class="_service-prices relative isolate grid grid-cols-1 gap-3 lg:gap-0 lg:grid-cols-3 lg:p-3 lg:border lg:border-outline lg:rounded-2xl">
+              <div class="_service-prices relative isolate grid grid-cols-1 gap-3 lg:gap-0 lg:grid-cols-3">
                 <div class="_service-prices-header hidden lg:grid grid-cols-subgrid col-span-full">
                   <div class="typo-h5 p-6">Услуги</div>
                   {showDiscount && (
@@ -95,13 +95,13 @@ const showDiscount = hasDiscount(discountPercent);
                               <br />
                               {discountPercent}%
                             </div>
-                            <div class="lg:w-full text-center ">
+                            <div class="lg:w-full text-center text-text-primary-inverse lg:text-text-primary">
                               от {discountedPrice} ₽/{subService.unit}
                             </div>
                           </div>
                         </div>
 
-                        <div class="flex items-center justify-between typo-t2 p-6 text-center">
+                        <div class="flex items-center justify-between typo-t2 p-4 pl-7 lg:p-6 text-center">
                           <div class="lg:hidden typo-t3 text-text-secondary">Обычная цена</div>
                           <div class="lg:w-full p-4 lg:p-0 text-center">
                             от {subService.price} ₽/{subService.unit}

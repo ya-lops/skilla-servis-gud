@@ -17,6 +17,8 @@ const discount = getDiscountPercent(brandData.main.adv_price_percent);
 const { price, discountedPrice, showDiscount } = getGlobalMinPriceWithDiscount(brandData.services, discount);
 
 const firstServiceUrl = brandData.services[0].url.toLowerCase();
+const mapData = brandData.map_coordinates;
+const citiesJson = JSON.stringify(mapData.cities);
 ---
 
 {
@@ -28,9 +30,7 @@ const firstServiceUrl = brandData.services[0].url.toLowerCase();
       >
         <div class="container h-full">
           <div class="_hero-inner grid grid-cols-1 items-start lg:items-center h-full">
-            <div class="_hero-image absolute inset-0 -z-1">
-              <img class="object-cover h-full w-full" src="/images/hero-main.webp" alt="" fetchpriority="high" />
-            </div>
+            <div id="hero-map" class="_hero-image absolute inset-0 -z-1 pointer-events-none"></div>
 
             <div class="_hero-content flex flex-col gap-10 p-10 max-w-[43.25rem] rounded-4xl bg-surface-primary add-shadow">
               <h1 class="_hero-title typo-h1 text-balance">
@@ -71,9 +71,7 @@ const firstServiceUrl = brandData.services[0].url.toLowerCase();
     >
       <div class="container h-full">
         <div class="_hero-inner grid grid-cols-1 items-start lg:items-center h-full">
-          <div class="_hero-image absolute inset-0 -z-1">
-            <img class="object-cover h-full w-full" src="/images/hero-about.webp" alt="" fetchpriority="high" />
-          </div>
+          <div id="hero-map" class="_hero-image absolute inset-0 -z-1 pointer-events-none"></div>
 
           <div class="_hero-content flex flex-col gap-10 p-10 max-w-[43.25rem] rounded-4xl bg-surface-primary add-shadow">
             <h1 class="_hero-title typo-h1 text-left text-balance isolate">Работаем с 2010 года по всей России</h1>
@@ -91,3 +89,52 @@ const firstServiceUrl = brandData.services[0].url.toLowerCase();
     </section>
   )
 }
+
+<script is:inline define:vars={{ citiesJson }}>
+  const script = document.createElement("script");
+  script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
+  script.onload = () => {
+    ymaps.ready(() => {
+      const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#FF5722';
+      
+      const mapElements = document.querySelectorAll("#hero-map");
+      
+      mapElements.forEach((mapElement) => {
+        const map = new ymaps.Map(mapElement, {
+          center: [57.251096, 28.40977],
+          zoom: 4,
+          controls: [],
+        });
+
+        map.behaviors.disable("scrollZoom");
+
+        const cities = JSON.parse(citiesJson);
+        const encodedColor = encodeURIComponent(accentColor);
+
+        cities.forEach((city) => {
+          const placemark = new ymaps.Placemark(
+            [city.lat, city.lng],
+            {
+              hintContent: city.city,
+              balloonContent: `<strong>${city.city}</strong><br><a href="https://${city.seo_site}" target="_blank" rel="noopener noreferrer">${city.seo_site}</a>`,
+            },
+            {
+              iconLayout: "default#imageWithContent",
+              iconImageHref: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='${encodedColor}' stroke='black' stroke-width='2'/%3E%3C/svg%3E`,
+              iconImageSize: [16, 16],
+              iconImageOffset: [-8, -8],
+            },
+          );
+          map.geoObjects.add(placemark);
+        });
+      });
+    });
+  };
+  document.head.appendChild(script);
+</script>
+
+<style is:global>
+  [class*='copyright'] {
+    display: none !important;
+  }
+</style>
